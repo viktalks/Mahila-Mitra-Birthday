@@ -1,6 +1,6 @@
 # Mahila Mitra Birthday Project
 
-This repository contains two separate codebases for a birthday-themed project. Each has its own setup and deployment instructions.
+This repository contains two separate codebases (Both are integrated) for a birthday-themed project. Each has its own setup and deployment instructions.
 
 ## Code 1: Static HTML, CSS, and JavaScript
 This version consists of simple static files served via Apache inside a Docker container.
