@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta name="title" content="">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital.ttf') format("truetype");
+		}
+	</style>
+	<link href="css/default.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js"></script>
+	<script type="text/javascript" src="js/functions.js"></script>
+    <script src="https://kit.fontawesome.com/2e95d79f91.js" crossorigin="anonymous"></script>
+    <title>Hapyy Birthday Swarali | Aoudumber Bade</title>
+</head>
+
+<body>
+
+    <div id="loveHeart">
+        <canvas id="garden"></canvas>
+        <div id="words">
+            <div id="messages">
+                <a href="https://www.instagram.com/aoudumber.dev/">Hpy B'day beautiful gurl</a> 
+                <i class="fa-regular fa-heart"></i>
+                <div id="elapseClock"></div>
+            </div>
+            <div id="loveu">
+                <div class="msgbox">
+                    <p>So glad to be one of the ppl who gets to say this to u! Love u always forever and ever!!</p>
+                    <p>Happy Birthday <i class="fa-regular fa-heart"></i></p>
+                    <p>- <a href="https://www.instagram.com/aoudumber.dev/">Aoudumber</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <canvas id="fireworks"></canvas>
+    <script type="text/javascript">
+        var offsetX = $("#loveHeart").width() / 2;
+        var offsetY = $("#loveHeart").height() / 2 - 55;
+        var together = new Date();
+        together.setFullYear(2000, 10, 5);
+        together.setHours(15);
+        together.setMinutes(0);
+        together.setSeconds(0);
+        together.setMilliseconds(0);
+    
+        if (!document.createElement('canvas').getContext) {
+            var msg = document.createElement("div");
+            msg.id = "errorMsg";
+            msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+";
+            document.body.appendChild(msg);
+            $("#code").css("display", "none")
+            $("#copyright").css("position", "absolute");
+            $("#copyright").css("bottom", "10px");
+            document.execCommand("stop");
+        } else {
+            setTimeout(function () {
+                startHeartAnimation();
+            }, 5000);
+    
+            timeElapse(together);
+            setInterval(function () {
+                timeElapse(together);
+            }, 500);
+    
+            adjustCodePosition();
+            $("#code").typewriter();
+        }
+    
+        function timeElapse(together) {
+            var current = new Date();
+            var diff = current - together;
+    
+            var years = current.getFullYear() - together.getFullYear();
+            var months = current.getMonth() - together.getMonth();
+            var days = current.getDate() - together.getDate();
+            var hours = current.getHours() - together.getHours();
+            var minutes = current.getMinutes() - together.getMinutes();
+            var seconds = current.getSeconds() - together.getSeconds();
+    
+            // Adjust if negative values occur
+            if (seconds < 0) {
+                seconds += 60;
+                minutes--;
+            }
+            if (minutes < 0) {
+                minutes += 60;
+                hours--;
+            }
+            if (hours < 0) {
+                hours += 24;
+                days--;
+            }
+            if (days < 0) {
+                var prevMonth = new Date(current.getFullYear(), current.getMonth(), 0).getDate();
+                days += prevMonth;
+                months--;
+            }
+            if (months < 0) {
+                months += 12;
+                years--;
+            }
+    
+            var result = years + " years " + months + " months " + days + " days " + 
+                         hours + " hours " + minutes + " minutes " + seconds + " seconds";
+    
+            $("#elapseClock").html(result);
+        }
+    
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+    
+        // Set canvas to full screen
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    
+        // Firework class
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.radius = 3;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 2,
+                    y: -(Math.random() * 5 + 12)
+                };
+                this.alpha = 1;
+                this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                this.particles = [];
+                this.exploded = false;
+            }
+    
+            update() {
+                if (!this.exploded) {
+                    this.velocity.y += 0.1;
+                    this.x += this.velocity.x;
+                    this.y += this.velocity.y;
+    
+                    if (this.y < canvas.height * 0.25 + Math.random() * 100) {
+                        this.explode();
+                    }
+                }
+    
+                this.particles.forEach((particle, index) => {
+                    if (particle.alpha <= 0) {
+                        this.particles.splice(index, 1);
+                    } else {
+                        particle.update();
+                    }
+                });
+    
+                this.alpha -= 0.01;
+            }
+    
+            explode() {
+                this.exploded = true;
+                const baseHue = Math.random() * 360;
+                const particleCount = 150 + Math.random() * 50;
+    
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = (Math.PI * 2) * (i / particleCount);
+                    const speed = Math.random() * 5 + 2;
+    
+                    this.particles.push(new Particle(
+                        this.x,
+                        this.y,
+                        `hsla(${baseHue + (Math.random() * 20 - 10)}, 100%, 70%, 0.8)`,
+                        {
+                            x: Math.cos(angle) * speed + (Math.random() - 0.5),
+                            y: Math.sin(angle) * speed + (Math.random() - 0.5)
+                        }
+                    ));
+                }
+    
+                this.particles.push(new Particle(this.x, this.y, 'white', { x: 0, y: 0 }, 8, 0.5));
+            }
+    
+            draw() {
+                if (!this.exploded) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+    
+                this.particles.forEach(particle => particle.draw());
+            }
+        }
+    
+        // Particle class
+        class Particle {
+            constructor(x, y, color, velocity, size = Math.random() * 3 + 1, gravity = 0.1) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.velocity = velocity;
+                this.color = color;
+                this.alpha = 1;
+                this.gravity = gravity;
+                this.resistance = 0.98;
+                this.fade = Math.random() * 0.02 + 0.01;
+            }
+    
+            update() {
+                this.velocity.x *= this.resistance;
+                this.velocity.y *= this.resistance;
+                this.velocity.y += this.gravity;
+    
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.fade;
+                this.size *= 0.97;
+            }
+    
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+    
+        const fireworks = [];
+    
+        function launchRandomFirework() {
+            fireworks.push(new Firework());
+    
+            setTimeout(launchRandomFirework, Math.random() * 1500 + 500);
+        }
+    
+        launchRandomFirework();
+    
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.alpha <= 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+    
+            requestAnimationFrame(animate);
+        }
+    
+        animate();
+    </script>
+    <button id="memories-btn" style="display: none;">Let's Catch Up Some Memories</button>
+
+<style>
+    #memories-btn {
+        position: absolute;
+        top: 60%; /* Adjusted to the opposite side of the heart */
+        right: 15%; /* Moves it further away from the heart */
+        background: linear-gradient(45deg, #ff758c, #ff7eb3);
+        border: none;
+        padding: 12px 24px;
+        font-size: 18px;
+        color: white;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        font-family: 'Arial', sans-serif;
+        box-shadow: 0 5px 15px rgba(255, 118, 136, 0.4);
+        opacity: 0; /* Initially hidden */
+    }
+
+    #memories-btn:hover {
+        background: linear-gradient(45deg, #ff4b8b, #ff5f9e);
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(255, 80, 120, 0.6);
+    }
+</style>
+
+<script>
+    // Wait for 10 seconds after the page loads before showing the button
+    window.onload = function() {
+        setTimeout(function() {
+            let button = document.getElementById('memories-btn');
+            button.style.display = 'block';
+            setTimeout(() => {
+                button.style.opacity = '1';  // Smooth fade-in effect
+            }, 100);  
+        }, 20000); // 10 seconds delay
+    };
+
+    document.getElementById('memories-btn').addEventListener('click', function() {
+        window.location.href = 'last.html'; // Opens last.html in the same tab
+    });
+</script>
+
+    
+    </body>
+    </html>
+    
