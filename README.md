@@ -20,12 +20,11 @@ This version includes a Three.js-based animation and requires `yarn` for depende
 ### Setup and Deployment
 1. **Install dependencies**:
    yarn install
-2. **Run the project locally**:
    yarn dev
-   By default, it runs on `http://localhost:5173`.
-3. **Build the Docker image**:
+2. **Build the Docker image**:
+   cd /ssc/Mahila-Mitra-Birthday/three-js-birthday-cake
    docker build -t cake-docker-image .
-4. **Run the container**:
+3. **Run the container**:
    docker run -d -p 5173:5173 --name cake-docker-container cake-docker-image yarn dev --host 0.0.0.0
 
 The animation will be available at `http://localhost:5173`.
