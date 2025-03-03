@@ -23,6 +23,7 @@ This version includes a Three.js-based animation and requires `yarn` for depende
    yarn dev
 2. **Build the Docker image**:
    cd /ssc/Mahila-Mitra-Birthday/three-js-birthday-cake
+
    docker build -t cake-docker-image .
 3. **Run the container**:
    docker run -d -p 5173:5173 --name cake-docker-container cake-docker-image yarn dev --host 0.0.0.0
