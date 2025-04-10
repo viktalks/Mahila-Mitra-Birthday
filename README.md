@@ -1,42 +1,82 @@
-# Mahila Mitra Birthday Project
+🎉 Mahila Mitra Birthday Project
+Welcome to the Mahila Mitra Birthday Project!
+This repository contains two integrated codebases for a beautiful birthday-themed web experience:
 
-This repository contains two separate codebases (Both are integrated) for a birthday-themed project. Each has its own setup and deployment instructions.
+🖼️ Code 1: Static HTML, CSS, and JavaScript served with Docker + Apache
 
-## Code 1: Static HTML, CSS, and JavaScript
-This version consists of simple static files served via Apache inside a Docker container.
+🎂 Code 2: A stunning 3D Birthday Cake Animation built with Three.js
 
-### Setup and Deployment
-1. **Clone the repository**:
-   git clone https://github.com/viktalks/Mahila-Mitra-Birthday.git
-   cd Mahila-Mitra-Birthday
-2. **Build the Docker image**:
-   docker build -t bday-docker-image .
-3. **Run the container**:
-   docker run -d --name bday-container -p 80:80 bday-docker-image
+📁 Project Structure
+csharp
+Copy
+Edit
+Mahila-Mitra-Birthday/
+├── apache-static-site/       # Code 1 - Static HTML/CSS/JS site
+└── three-js-birthday-cake/   # Code 2 - Three.js animated cake
+🚀 Setup and Deployment
+🖼️ Code 1: Static HTML/CSS/JS with Docker + Apache
+Clone the repository
 
-## Code 2: Birthday Cake Animation
-This version includes a Three.js-based animation and requires `yarn` for dependency management.
+bash
+Copy
+Edit
+git clone https://github.com/viktalks/Mahila-Mitra-Birthday.git
+cd Mahila-Mitra-Birthday
+Build the Docker image
 
-### Setup and Deployment
-1. **Install dependencies**:
-   yarn install
-   yarn dev
-2. **Build the Docker image**:
-   cd /ssc/Mahila-Mitra-Birthday/three-js-birthday-cake
+bash
+Copy
+Edit
+docker build -t bday-docker-image .
+Run the Docker container
 
-   docker build -t cake-docker-image .
-3. **Run the container**:
-   docker run -d -p 5173:5173 --name cake-docker-container cake-docker-image yarn dev --host 0.0.0.0
+bash
+Copy
+Edit
+docker run -d --name bday-container -p 80:80 bday-docker-image
+🎂 Code 2: Birthday Cake Animation (Three.js + Yarn)
+Navigate to the folder
 
-The animation will be available at `http://localhost:5173`.
+bash
+Copy
+Edit
+cd three-js-birthday-cake
+Install dependencies
 
-## Troubleshooting
-- Ensure Docker is running.
-- If ports 80 or 5173 are already in use, adjust the port mapping in the `docker run` command.
-- Port no 80 and 5173 is open for 0.0.0.0 in firewall.
-- For issues with `yarn`, ensure it is installed by running `yarn --version`.
+bash
+Copy
+Edit
+yarn install
+Build and run inside Docker
 
-For further improvements or contributions, feel free to open a pull request!
+bash
+Copy
+Edit
+docker build -t cake-docker-image .
+docker run -d -p 5173:5173 --name cake-docker-container cake-docker-image yarn dev --host 0.0.0.0
+View the animation
+Open http://localhost:5173 in your browser.
 
-**Author:** [Viktalks](https://github.com/viktalks)  
+🛠️ Troubleshooting
+Make sure Docker is running.
 
+Ensure Yarn is installed:
+
+bash
+Copy
+Edit
+yarn --version
+If ports 80 or 5173 are already in use, change the port mappings:
+
+bash
+Copy
+Edit
+docker run -d -p <custom_port>:80 ...
+Verify that ports 80 and 5173 are open for 0.0.0.0 in your firewall settings.
+
+🤝 Contributions
+Feel free to open a pull request for improvements, features, or fixes!
+
+👨‍💻 Author
+Viktalks
+✨ Spreading smiles, one birthday at a time!
