@@ -67,12 +67,14 @@ Mahila-Mitra-Birthday/
 ## 🛠️ Troubleshooting
 
 - Make sure **Docker** is running.
+```bash
+  systemctl status docker
+  ```
 - Ensure **Yarn** is installed:  
   ```bash
   yarn --version
   ```
-  ```
-- Verify that ports 80 and 5173 are **open for 0.0.0.0** in your firewall settings.
+- Verify that ports 80 and 5173 are **open for 0.0.0.0** in your firewall/NSG settings.
 
 ---
 
