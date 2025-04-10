@@ -13,7 +13,7 @@ This repository contains **two integrated codebases** for a beautiful birthday-t
 
 ```
 Mahila-Mitra-Birthday/
-├── apache-static-site/       # Code 1 - Static HTML/CSS/JS site
+├──                           # Code 1 - Static HTML/CSS/JS site
 └── three-js-birthday-cake/   # Code 2 - Three.js animated cake
 ```
 
@@ -71,9 +71,6 @@ Mahila-Mitra-Birthday/
   ```bash
   yarn --version
   ```
-- If ports **80** or **5173** are already in use, change the port mappings:
-  ```bash
-  docker run -d -p <custom_port>:80 ...
   ```
 - Verify that ports 80 and 5173 are **open for 0.0.0.0** in your firewall settings.
 
